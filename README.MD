@@ -94,7 +94,7 @@ systemctl enable zabbix-server apache2
 
 ![](img/Screenshot_Configuration_Hosts.png)
 
-![](img/Screenshot_srvzab_agent_log.png)
+![](img/Screenshot_srv_zabbix_agent_log.png)
 
 ![](img/Screenshot_Zabbix_server_agent_log.png)
 
