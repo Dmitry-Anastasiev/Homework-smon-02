@@ -1,4 +1,4 @@
-# Домашнее задание к занятию «Система мониторинга Zabbix»
+# Домашнее задание к занятию «Система мониторинга Zabbix» - `Анастасиев Дмитрий`
 
 В практике есть 2 основных и 1 дополнительное (со звездочкой) задания. Первые два нужно выполнять обязательно, третье - по желанию и его решение никак не повлияет на получение вами зачета по этому домашнему заданию, при этом вы сможете глубже и/или шире разобраться в материале.
 
@@ -43,6 +43,33 @@
 
 ### Решение 1
 
+apt update
+
+apt upgrade
+
+apt install postgresql
+
+wget https://repo.zabbix.com/zabbix/6.0/debian/pool/main/z/zabbix-release/zabbix-release_latest_6.0+debian11_all.deb
+
+dpkg -i zabbix-release_latest_6.0+debian11_all.deb
+
+apt update
+
+apt install zabbix-server-pgsql zabbix-frontend-php php7.4-pgsql zabbix-apache-conf zabbix-sql-scripts zabbix-agent
+
+su - postgres -c 'psql --command "CREATE USER zabbix WITH PASSWORD '\'023456789\'';"'
+
+su - postgres -c 'psql --command "CREATE DATABASE zabbix OWNER zabbix;"'
+
+zcat /usr/share/zabbix-sql-scripts/postgresql/server.sql.gz | sudo -u zabbix psql zabbix
+
+sed -i 's/# DBPassword=/DBPassword=023456789/g' /etc/zabbix/zabbix_server.conf
+
+systemctl restart zabbix-server apache2
+
+systemctl enable zabbix-server apache2
+
+![](img/Screenshot_zabbix_login.png)
 
 ---
 
@@ -62,6 +89,40 @@
 2. Приложите в файл README.md скриншот лога zabbix agent, где видно, что он работает с сервером
 3. Приложите в файл README.md скриншот раздела Monitoring > Latest data для обоих хостов, где видны поступающие от агентов данные.
 4. Приложите в файл README.md текст использованных команд в GitHub
+
+### Решение 2
+
+![](img/Screenshot_Configuration_Hosts.png)
+
+![](img/Screenshot_srvzab_agent_log.png)
+
+![](img/Screenshot_Zabbix_server_agent_log.png)
+
+![](img/Screenshot_srv_zabbix_agent_cpu_util.png)
+
+![](img/Screenshot_Zabbix_server_cpu_util.png)
+
+
+apt update
+
+apt upgrade
+
+wget https://repo.zabbix.com/zabbix/6.0/debian/pool/main/z/zabbix-release/zabbix-release_latest_6.0+debian13_all.deb
+
+dpkg -i zabbix-release_latest_6.0+debian13_all.deb
+
+apt update
+
+apt install zabbix-agent
+
+systemctl restart zabbix-agent
+
+systemctl enable zabbix-agent
+
+sed -i 's/Server=127.0.0.1/Server=10.129.0.23/g' /etc/zabbix/zabbix_agentd.conf
+
+systemctl restart zabbix-agent
+
 
 ---
 ## Задание 3 со звёздочкой*
