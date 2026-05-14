@@ -43,6 +43,7 @@
 
 ### Решение 1
 
+```bash
 apt update
 
 apt upgrade
@@ -68,8 +69,11 @@ sed -i 's/# DBPassword=/DBPassword=023456789/g' /etc/zabbix/zabbix_server.conf
 systemctl restart zabbix-server apache2
 
 systemctl enable zabbix-server apache2
+```
 
 ![](img/Screenshot_zabbix_login.png)
+
+![](img/Screenshot_zabbix_login2.png)
 
 ---
 
@@ -94,7 +98,7 @@ systemctl enable zabbix-server apache2
 
 ![](img/Screenshot_Configuration_Hosts.png)
 
-![](img/Screenshot_srv_zabbix_agent_log.png)
+![](img/Screenshot_srv_zabbix_agent_log2.png)
 
 ![](img/Screenshot_Zabbix_server_agent_log.png)
 
@@ -103,6 +107,7 @@ systemctl enable zabbix-server apache2
 ![](img/Screenshot_Zabbix_server_cpu_util.png)
 
 
+```bash
 apt update
 
 apt upgrade
@@ -122,18 +127,4 @@ systemctl enable zabbix-agent
 sed -i 's/Server=127.0.0.1/Server=10.129.0.23/g' /etc/zabbix/zabbix_agentd.conf
 
 systemctl restart zabbix-agent
-
-
----
-## Задание 3 со звёздочкой*
-Установите Zabbix Agent на Windows (компьютер) и подключите его к серверу Zabbix.
-
-#### Требования к результатам
-1. Приложите в файл README.md скриншот раздела Latest Data, где видно свободное место на диске C:
----
-
-## Критерии оценки
-
-1. Выполнено минимум 2 обязательных задания
-2. Прикреплены требуемые скриншоты и тексты
-3. Задание оформлено в шаблоне с решением и опубликовано на GitHub
+```
